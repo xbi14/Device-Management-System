@@ -1,0 +1,61 @@
+{% load static %} {%load crispy_forms_tags %}
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="loaithietbiModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">THÊM LOẠI THIẾT BỊ MỚI</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% if LoaiForm.errors %}
+        <div class="alert alert-danger" role="alert">
+          <strong>Oops!</strong> Có lỗi xảy ra, vui lòng thử lại.
+          <ul>
+            {% for field in LoaiForm %} {% for error in field.errors %}
+            <li><strong>{{ field.label }}</strong> {{ error }}</li>
+            {% endfor %} {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        <a>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          <strong>Vui lòng nhập đầy đủ thông tin</strong>
+        </a>
+        <hr />
+        <form
+          action="{% url 'QLthietbi_app:them_loai_thiet_bi' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-12 mb-0">
+              {{ LoaiForm.ten_loaithietbi|as_crispy_field }}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" value="Submit" class="btn btn-dark">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              Lưu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,235 @@
+{% extends 'header_vitri.html' %}
+<!-- Format keep -->
+{% block content %}
+<div class="col-5 p-md-3">
+    <!-- Danh mục -->
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title text-center">Tổng số các danh mục</h5>
+        </div>
+        <div class="card-body">
+            <a><i class="fa fa-university" aria-hidden="true"></i> Tổng số phòng: <span class="text-muted">{{ listPhong.count }}</span></a>
+            <hr />
+            <a><i class="fa fa-building-o" aria-hidden="true"></i> Tổng số tầng <span class="text-muted">{{ listTang.count }}</span></a>
+            <hr />
+            <a><i class="fa fa-cubes" aria-hidden="true"></i> Tổng số loại thiết bị: <span class="text-muted">{{ listLoaiThietBi.count }}</span></a>
+            <hr />
+            <a><i class="fa fa-cube" aria-hidden="true"></i> Tổng số thiết bị: <span class="text-muted">{{ ThietBiCount }}</span></a>
+        </div>
+    </div>
+    <!-- Danh mục -->
+    <hr />
+    <!-- Tầng -->
+    <div class="row element-button">
+        <div class="px-3 py-2 pr-1">
+            {% include "them_tang_modal.html" %}
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#tangModal">
+                <i class="fa fa-plus" aria-hidden="true"> Tầng</i>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="tang-table" class="table table-sm table-striped bg-light table-condensed table-bordered">
+            <thead class="thead-dark">
+                <th class="text-center">ID</th>
+                <th class="text-center">Tên Tầng</th>
+                <th class="text-center">Thao tác</th>
+            </thead>
+            <tbody>
+                {% csrf_token %} {% for Tang in listTang %}
+                <tr>
+                    <td class="text-center">{{ Tang.id }}</td>
+                    <td class="text-center">Tầng {{ Tang.ten_tang }}</td>
+                    {% include "xacnhanxoa_tang_modal.html" %}
+                    <td class="text-center">
+                        <a class="btn btn-outline-dark" data-placement="top" title="Xóa tầng" data-target="#confirmDeleteTangModal-{{ Tang.pk }}" data-toggle="modal" data-tooltip="tooltip" id="delete-item">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Tầng -->
+</div>
+<div class="col-5 p-md-3">
+    <!-- Loại thiết bị -->
+    <div class="row element-button">
+        <div class="px-3 py-4 pr-1">
+            {% include "them_loai_modal.html" %}
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#loaithietbiModal">
+                <i class="fa fa-plus" aria-hidden="true"> Loại thiết bị</i>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="loai-table" class="table table-sm table-striped bg-light table-condensed table-bordered">
+            <thead class="thead-dark">
+                <th class="text-center">ID</th>
+                <th class="text-center">Loại thiết bị</th>
+                <th class="text-center">Thao tác</th>
+            </thead>
+            <tbody>
+                {% csrf_token %} {% for LoaiThietBi in listLoaiThietBi %}
+                <tr>
+                    <td class="text-center">{{ LoaiThietBi.id }}</td>
+                    <td class="text-center">{{ LoaiThietBi.ten_loaithietbi }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-dark" data-placement="top" title="Xóa loại thiết bị" data-tooltip="tooltip" href="{% url 'QLthietbi_app:xoa_loai_thiet_bi' LoaiThietBi.pk %}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Loại thiết bị -->
+    <hr />
+    <!-- Phòng -->
+    <div class="row element-button">
+        <div class="px-3 py-2 pr-1">
+            {% include "them_phong_modal.html" %}
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#phongModal">
+                <i class="fa fa-plus" aria-hidden="true"> Phòng</i>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="phong-table" class="table table-sm table-striped bg-light table-condensed table-bordered">
+            <thead class="thead-dark">
+                <th class="text-center">ID</th>
+                <th class="text-center">Tên phòng</th>
+                <th class="text-center">Thuộc tầng</th>
+                <th class="text-center">Thao tác</th>
+            </thead>
+            <tbody>
+                {% csrf_token %} {% for Phong in listPhong %}
+                <tr>
+                    <td class="text-center">{{ Phong.id }}</td>
+                    <td class="text-center">Phòng {{ Phong.ten_phong }}</td>
+                    <td class="text-center">Tầng {{ Phong.tang }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-dark" data-placement="top" title="Xóa phòng" data-tooltip="tooltip" href="{% url 'QLthietbi_app:xoa_phong' Phong.pk %}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Phòng -->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(function () {
+        $('[data-tooltip="tooltip"]').tooltip();
+    });
+</script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#phong-table").DataTable({
+            lengthMenu: [5, 15, 25, 50], // Các tùy chọn giới hạn số lượng mục trên bảng
+            language: {
+                lengthMenu: "Hiển thị _MENU_ phòng",
+                info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ phòng",
+                infoEmpty: "Hiển thị từ 0 đến 0 của 0 phòng",
+                infoFiltered: "(lọc từ _MAX_ phòng)",
+                search: "Tìm kiếm:",
+                paginate: {
+                    first: "Đầu",
+                    last: "Cuối",
+                    next: "Tiếp",
+                    previous: "Trước",
+                },
+                zeroRecords: "Không tìm thấy phòng",
+                emptyTable: "Không có dữ liệu trong bảng",
+                loadingRecords: "Đang tải...",
+                processing: "Đang xử lý...",
+                aria: {
+                    sortAscending: ": Sắp xếp tăng dần",
+                    sortDescending: ": Sắp xếp giảm dần",
+                },
+            },
+            columnDefs: [
+                { orderable: false, targets: 1 },
+                { orderable: false, targets: 3 }, // Không cho phép sắp xếp cột thao tác
+            ],
+            order: [[0, "asc"]], // Sắp xếp cột đầu tiên theo thứ tự tăng dần
+            //"dom": '<"top"l>rt<"bottom"ip><"clear">' // Định dạng các thành phần của bảng
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#tang-table").DataTable({
+            lengthMenu: [5, 15, 25, 50], // Các tùy chọn giới hạn số lượng mục trên bảng
+            language: {
+                lengthMenu: "Hiển thị _MENU_ tầng",
+                info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ tầng",
+                infoEmpty: "Hiển thị từ 0 đến 0 của 0 tầng",
+                infoFiltered: "(lọc từ _MAX_ tầng)",
+                search: "Tìm kiếm:",
+                paginate: {
+                    first: "Đầu",
+                    last: "Cuối",
+                    next: "Tiếp",
+                    previous: "Trước",
+                },
+                zeroRecords: "Không tìm thấy tầng",
+                emptyTable: "Không có dữ liệu trong bảng",
+                loadingRecords: "Đang tải...",
+                processing: "Đang xử lý...",
+                aria: {
+                    sortAscending: ": Sắp xếp tăng dần",
+                    sortDescending: ": Sắp xếp giảm dần",
+                },
+            },
+            columnDefs: [
+                { orderable: false, targets: 2 }, // Không cho phép sắp xếp cột thao tác
+            ],
+            order: [[0, "asc"]], // Sắp xếp cột đầu tiên theo thứ tự tăng dần
+            //"dom": '<"top"l>rt<"bottom"ip><"clear">' // Định dạng các thành phần của bảng
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#loai-table").DataTable({
+            lengthMenu: [2, 15, 25, 50], // Các tùy chọn giới hạn số lượng mục trên bảng
+            language: {
+                lengthMenu: "Hiển thị _MENU_ loại thiết bị",
+                info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ loại thiết bị",
+                infoEmpty: "Hiển thị từ 0 đến 0 của 0 loại thiết bị",
+                infoFiltered: "(lọc từ _MAX_ loại thiết bị)",
+                search: "Tìm kiếm:",
+                paginate: {
+                    first: "Đầu",
+                    last: "Cuối",
+                    next: "Tiếp",
+                    previous: "Trước",
+                },
+                zeroRecords: "Không tìm thấy loại thiết bị",
+                emptyTable: "Không có dữ liệu trong bảng",
+                loadingRecords: "Đang tải...",
+                processing: "Đang xử lý...",
+                aria: {
+                    sortAscending: ": Sắp xếp tăng dần",
+                    sortDescending: ": Sắp xếp giảm dần",
+                },
+            },
+            columnDefs: [
+                { orderable: false, targets: 1 },
+                { orderable: false, targets: 2 }, // Không cho phép sắp xếp cột thao tác
+            ],
+            order: [[0, "asc"]], // Sắp xếp cột đầu tiên theo thứ tự tăng dần
+            //"dom": '<"top"l>rt<"bottom"ip><"clear">' // Định dạng các thành phần của bảng
+        });
+    });
+</script>
+{% endblock %}

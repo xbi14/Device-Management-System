@@ -1,0 +1,68 @@
+<!-- Modal notseletedmodal -->
+<div class="modal fade" id="notseletedmodal" tabindex="-1" role="dialog" aria-labelledby="notseletedmodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Thông báo
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chưa chọn thiết bị nào!</p>
+        <hr></hr>
+        <div class="alert-danger">
+          <strong>Vui lòng chọn ít nhất 1 thiết bị để thực hiện thao tác này.</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- Các nút điều khiển của modal footer -->
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  /* Kiểu dáng cho modal notseletedmodal */
+  #notseletedmodal .modal-dialog {
+    max-width: 400px;
+  }
+
+  #notseletedmodal .modal-content {
+    border-radius: 6px;
+  }
+
+  #notseletedmodal .modal-header {
+    border-bottom: none;
+    background-color: #343a40;
+    color: #ffff; 
+  }
+
+  #notseletedmodal .modal-title {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  #notseletedmodal .modal-body {
+    padding: 20px;
+  }
+
+  #notseletedmodal .alert-danger {
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  #notseletedmodal strong {
+    font-weight: bold;
+  }
+
+  .close {
+    color: #fff; 
+    opacity: 1;
+    filter: brightness(0) invert(1);
+    
+  }
+</style>

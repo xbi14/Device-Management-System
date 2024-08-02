@@ -1,0 +1,278 @@
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:200");
+
+body {
+  background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
+  background-size: cover;
+  -webkit-animation: slidein 100s;
+  animation: slidein 100s;
+
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
+}
+
+@keyframes slidein {
+  from {
+    background-position: top;
+    background-size: 3000px;
+  }
+  to {
+    background-position: -100px 0px;
+    background-size: 2750px;
+  }
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(75, 75, 250, 0.3);
+  border-radius: 3px;
+}
+.center h1 {
+  text-align: center;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  text-transform: uppercase;
+}
+
+.dropdown-toggle::after {
+  color: white; /* Màu của mũi tên trỏ xuống */
+}
+
+/* Data Table */
+
+.page-item.active .page-link {
+  color: #ffffff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.page-link {
+  color: #343a40;
+}
+
+.page-link:hover {
+  color: #ffffff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.dataTables_length .custom-select {
+  background-color: #ffffff; /* Màu nền */
+  border-color: #343a40; /* Màu viền */
+  margin-top: 2px;
+}
+
+.dataTables_length .custom-select:hover {
+  background-color: #ffffff; /* Màu nền */
+  border-color: #343a40; /* Màu viền */
+}
+
+.dataTables_length .custom-select:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 255);
+}
+
+.dataTables_filter .form-control {
+  background-color: #ffffff; /* Màu nền */
+  border-color: #343a40; /* Màu viền */
+  margin-right: 100px;
+  margin-top: 2px;
+}
+
+.dataTables_filter .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 255);
+}
+
+table-responsive.dataTable thead .sorting:after,
+table-responsive.dataTable thead .sorting:before,
+table-responsive.dataTable thead .sorting_asc:after,
+table-responsive.dataTable thead .sorting_asc:before,
+table-responsive.dataTable thead .sorting_asc_disabled:after,
+table-responsive.dataTable thead .sorting_asc_disabled:before,
+table-responsive.dataTable thead .sorting_desc:after,
+table-responsive.dataTable thead .sorting_desc:before,
+table-responsive.dataTable thead .sorting_desc_disabled:after,
+table-responsive.dataTable thead .sorting_desc_disabled:before {
+  bottom: 0.5em;
+}
+
+.dataTables_wrapper table.dataTable td,
+.dataTables_wrapper table.dataTable th {
+  text-align: center;
+  font-family: "Source Code Pro", monospace;
+  vertical-align: middle;
+}
+
+.a-td {
+  color: #343a40;
+  text-decoration: none;
+}
+
+.a-td:hover {
+  color: #343a40;
+  text-decoration: none;
+}
+
+.checkbox-large {
+  transform: scale(1.5); /* Tăng kích thước checkbox */
+}
+
+.checkbox-large:checked {
+  background-color: #343a40; /* Thay đổi màu sắc khi checkbox được chọn */
+}
+
+.checkbox-large:checked:after {
+  color: #343a40; /* Thay đổi màu sắc của dấu check */
+}
+
+caption {
+  caption-side: top;
+  text-align: right;
+  color: #343a40;
+}
+/* -------------------------------DataTable End-------------------------------------------- */
+
+.xac-nhan-xoa1-modal {
+  z-index: 9999;
+}
+
+.xac-nhan-xoa1-modal .modal-dialog {
+  text-align: left;
+  font-family: "arial";
+}
+
+.btn-dark {
+  margin: 2px;
+}
+
+/* -------------------------------Collapse Bar------------------------------------------- */
+#body-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+#sidebar-container {
+  min-height: 100vh;
+  background-color: #333;
+  padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+  width: 230px !important;;
+}
+.sidebar-collapsed {
+  width: 60px !important;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+  height: 50px;
+  color: white;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+  height: 45px;
+  padding-left: 30px;
+}
+.sidebar-submenu {
+  font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+  background-color: #333;
+  height: 35px;
+}
+.sidebar-separator {
+  background-color: #333;
+  height: 25px;
+}
+.logo-separator {
+  background-color: #333;
+  height: 60px;
+}
+
+/* Closed submenu icon */
+#sidebar-container
+  .list-group
+  .list-group-item[aria-expanded="false"]
+  .submenu-icon::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container
+  .list-group
+  .list-group-item[aria-expanded="true"]
+  .submenu-icon::after {
+  content: " \f0da";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+
+
+
+/* ==================Bread crumbs==================== */
+.breadcrumb {
+  background-color: #e6e6e6;
+  color: #343a40;
+  padding: 0%;
+  margin: 0%;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+  color: #343a40;
+}
+
+.breadcrumb-item a {
+  color: #343a40;
+}

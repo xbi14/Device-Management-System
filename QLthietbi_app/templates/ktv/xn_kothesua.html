@@ -1,0 +1,46 @@
+<div
+  class="modal fade"
+  id="confirmKhongTheSuaChuaModal-{{ BaoCao.pk }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmKhongTheSuaChuaModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmHoanThanhModalLabel">
+          Xác nhận thiết bị không thể sửa chữa
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn thiết bị này không thể sửa chữa được không?</p>
+        <div class="alert alert-danger">
+          <p>
+            <strong>Lưu ý:</strong>
+            Sau khi xác nhận, <strong> thông báo không thể sửa chữa được của thiết bị</strong> sẽ được trả về báo cáo để quản lý tiếp tục xử lý.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">
+            Hủy
+          </button>
+          <a
+            class="btn btn-outline-danger"
+            href="{% url 'QLthietbi_app:khongthe_suachua' BaoCao.pk %}"
+          >
+            Xác nhận
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

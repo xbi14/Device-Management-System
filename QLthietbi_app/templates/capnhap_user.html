@@ -1,0 +1,112 @@
+{% extends 'header.html' %}
+<!-- Format keep -->
+{% block content %}
+<!-- Format keep -->
+{%load crispy_forms_tags %}
+<!-- Format keep -->
+<div class="container col-6 py-5">
+    <div class="card">
+        <div class="card-header bg-dark text-white text-center">
+            <h5 class="card-title">Cập nhập thông tin cá nhân</h5>
+        </div>
+        <div class="card-body">
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+              <strong>Oops!</strong> Có lỗi xảy ra, vui lòng thử lại.
+              <ul>
+                {% for field in baoCaoForm %} 
+                {% for error in field.errors %}
+                <li><strong>{{ field.label }}</strong> {{ error }}</li>
+                {% endfor %} 
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            <span class="align-middle text-center" style="display: block;">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+              <strong>Vui lòng điền đủ thông tin cá nhân</strong>
+            </span>
+            <hr />
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.ho|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.ten|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.gioi_tinh|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.anh_the|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.ngay_sinh|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.ngay_vao_lam|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.dia_chi|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.sdt|as_crispy_field }}
+                    </div>
+                </div>
+                <hr />
+                <button type="submit" value="Submit" class="btn btn-dark float-right">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    Lưu
+                  </button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="successUpdateModal" tabindex="-1" role="dialog" aria-labelledby="successUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successUpdateModalLabel">Cập nhập thành công</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Cập nhập thông tin thành công.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(function () {
+        $('[data-tooltip="tooltip"]').tooltip();
+    });
+</script>
+{% if success == True %}
+<script>
+  $(document).ready(function () {
+    $("#successUpdateModal").modal("show");
+  });
+  $(document).ready(function () {
+    $("#successUpdateModal").on("hidden.bs.modal", function (e) {
+      window.location.href = '{% url "QLthietbi_app:capnhap_user" user.id %}';
+    });
+  });
+</script>
+{% endif %}
+{% endblock %}

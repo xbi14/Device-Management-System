@@ -1,0 +1,96 @@
+{% extends 'header_taikhoan.html' %}
+<!-- Format keep -->
+{% block content %}
+<!-- Format keep -->
+<div class="col py-2">
+    <div class="row element-button">
+        <div class="px-3 py-3 pr-1">
+            <a href="{% url 'QLthietbi_app:tao_user' %}" class="btn btn-dark" data-tooltip="tooltip" data-placement="top" title="Thêm tài khoản">
+                <i class="fa fa-plus" aria-hidden="true"> Tài khoản</i>
+            </a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="acc-table" class="table table-sm table-striped bg-light table-condensed table-bordered">
+            <thead class="thead-dark">
+                <th class="text-center">ID</th>
+                <th class="text-center">Tên đăng nhập</th>
+                <th class="text-center">Họ tên</th>
+                <th class="text-center">Chức vụ</th>
+                <th class="text-center">Số điện thoại</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Giới tính</th>
+                <th class="text-center">Ngày sinh</th>
+                <th class="text-center">Thao tác</th>
+            </thead>
+            <tbody>
+                {% csrf_token %} {% for user in listUser %}
+                <tr>
+                    <td class="text-center">{{ user.id }}</td>
+                    <td class="text-center">{{ user.username }}</td>
+                    <td class="text-center">{{ user.get_full_name }}</td>
+                    {% if user.chuc_vu == 'quanly' %}
+                    <td class="text-center">Quản lý</td>
+                    {% elif user.chuc_vu == 'kythuatvien' %}
+                    <td class="text-center">Kỹ thuật viên</td>
+                    {% endif %}
+                    <td class="text-center">{{ user.sdt }}</td>
+                    <td class="text-center">{{ user.email }}</td>
+                    <td class="text-center">{{ user.gioi_tinh }}</td>
+                    <td class="text-center">{{ user.ngay_sinh|date:"d/m/Y" }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'QLthietbi_app:sua_user' user.id %}" class="btn btn-outline-dark" data-tooltip="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a data-toggle="modal" data-target="#confirmDeleteTaiKhoanModal-{{ user.id }}" class="btn btn-outline-dark" data-tooltip="tooltip" data-placement="top" title="Xóa"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <!-- Format keep -->
+                        {% include "xnx_taikhoan_modal.html" %}
+                        <!-- Format keep -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Tầng -->
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(function () {
+        $('[data-tooltip="tooltip"]').tooltip();
+    });
+</script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#acc-table").DataTable({
+            lengthMenu: [5, 15, 25, 50], // Các tùy chọn giới hạn số lượng mục trên bảng
+            language: {
+                lengthMenu: "Hiển thị _MENU_ tài khoản",
+                info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ tài khoản",
+                infoEmpty: "Hiển thị từ 0 đến 0 của 0 tài khoản",
+                infoFiltered: "(lọc từ _MAX_ tài khoản)",
+                search: "Tìm kiếm:",
+                paginate: {
+                    first: "Đầu",
+                    last: "Cuối",
+                    next: "Tiếp",
+                    previous: "Trước",
+                },
+                zeroRecords: "Không tìm thấy tài khoản",
+                emptyTable: "Không có dữ liệu trong bảng",
+                loadingRecords: "Đang tải...",
+                processing: "Đang xử lý...",
+                aria: {
+                    sortAscending: ": Sắp xếp tăng dần",
+                    sortDescending: ": Sắp xếp giảm dần",
+                },
+            },
+            columnDefs: [
+                { orderable: false, targets: 8 }, // Không cho phép sắp xếp cột thao tác
+            ],
+            order: [[0, "asc"]], // Sắp xếp cột đầu tiên theo thứ tự tăng dần
+            //"dom": '<"top"l>rt<"bottom"ip><"clear">' // Định dạng các thành phần của bảng
+        });
+    });
+</script>
+{% endblock %}

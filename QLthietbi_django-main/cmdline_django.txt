@@ -1,0 +1,22 @@
+- Tạo thư mục môi trường ảo: python -m venv ten_venv
+- Tạo project: django-admin startproject tenproject .
+- Tạo app: python manage.py startapp tenapp 
+- Kích hoạt môi trường ảo: py3.11_env\Scripts\activate 
+- Chạy Server: python manage.py runserver
+- Migrate database sang app: python manage.py makemigrations QLthietbi_app
+- Cập nhập database: python manage.py migrate
+- Tạo superuser: python manage.py createsuperuser
+- Chạy test: python manage.py test
+- Mở shell: python manage.py shell
+
+---------------------Lệnh Python Shell để Insert Data---------------------------
+from QLthietbi_app.models import QuanLy, CustomUser, NhanVien, KyThuatVien
+from django.utils import timezone
+from datetime import date
+# Tạo một user
+user = CustomUser.objects.create_superuser(username='admin', password='123',chuc_vu ='quanly', email='admin@mail.com', ho='Pham', ten='Tien Thanh',gioi_tinh='nam', ngay_sinh=date(2002, 5, 7), sdt='0123456789',ngay_vao_lam=timezone.now())
+user.save()
+
+# Tạo một quản lý
+quanly = QuanLy(user=user)
+quanly.save()

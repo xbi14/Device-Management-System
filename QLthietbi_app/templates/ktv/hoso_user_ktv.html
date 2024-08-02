@@ -1,0 +1,86 @@
+{% extends 'ktv/header_hoso_ktv.html' %}
+<!-- Format keep -->
+{% block content %}
+<!-- Format keep -->
+{%load crispy_forms_tags %}
+<!-- Format keep -->
+<div class="col py-2">
+  <!-- buttons row -->
+  <div class="row element-button">
+    <div class="col px-3 py-1 pr-1">
+        {% comment %} <a
+        href="{% url 'QLthietbi_app:render_danhsachthietbi' %}"
+        class="btn btn-dark"
+        ><i class="fa fa-angle-double-left" aria-hidden="true"></i> Trở
+        lại</a
+      > {% endcomment %}
+    </div>
+  </div>
+  <!-- buttons row -->
+  <!-- content -->
+  <br />
+  <div class="container">
+  <div class="card">
+    <h5 class="card-header bg-dark text-white">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp Thông tin cá nhân của {{ user.ten }}
+    </h5>
+    <div class="card-body">
+      <p class="card-text"></p>
+      <div class="row">
+        <div class="col-4">
+          <img
+            src="{{user.anh_the.url}}"
+            alt="Ảnh thẻ"
+            width="304"
+            height="422"
+          />
+        </div>
+        <div class="col-8">
+            <br />
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            <b>&nbsp Họ và tên:</b> {{ user.get_full_name }}
+            <hr />
+            <i class="fa fa-id-badge" aria-hidden="true"></i>
+            <!-- Format keep -->
+            {% if user.chuc_vu == 'quanly' %}
+            <!-- Format keep -->
+            <b>&nbsp Chức vụ:</b> Quản lý
+            <!-- Format keep -->
+            {% elif user.chuc_vu == 'kythuatvien' %}
+            <!-- Format keep -->
+            <b>&nbsp Chức vụ:</b> Kỹ thuật viên
+            {% endif %}
+            <!-- Format keep -->
+            <hr />
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <!-- Format keep -->
+            <b>&nbsp Địa chỉ:</b> {{ user.dia_chi }}
+            <hr />
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <b>&nbsp Ngày sinh:</b> {{ user.ngay_sinh|date:"d/m/Y" }}
+            <hr />
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <b>&nbsp Ngày vào làm:</b> {{ user.ngay_vao_lam|date:"d/m/Y" }}
+            <hr />
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <b>&nbsp Email:</b> {{ user.email }}
+            <hr />
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <b>&nbsp Số điện thoại:</b> {{ user.sdt }}
+        </div>
+      </div>
+    </div>
+    <!-- card body -->
+  </div>
+  </div>
+  <!-- card -->
+  <!-- content -->
+</div>
+<!-- col row -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(function () {
+    $('[data-tooltip="tooltip"]').tooltip();
+  });
+</script>
+{% endblock %}

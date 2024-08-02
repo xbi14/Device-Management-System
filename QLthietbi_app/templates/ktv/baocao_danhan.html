@@ -1,0 +1,83 @@
+{% extends 'ktv/header_bcdanhan_ktv.html' %}
+<!-- Format keep -->
+{% block content %}
+<!-- Format keep -->
+<div class="container col-6 py-5">
+    {% csrf_token %}
+    <!-- Format keep -->
+    {% if listBaoCao %}
+    <!-- Format keep -->
+    {% for BaoCao in listBaoCao %}
+    <!-- Format keep -->
+    <div class="card mb-3">
+        <div class="card-header text-center bg-dark text-white">
+            <h5 class="card-title">Báo cáo #{{ BaoCao.id }}: {{ BaoCao.tieu_de }}</h5>
+            {% if BaoCao.nguoi_nhan_bao_cao %}
+            <p class="text-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Người nhận sửa: {{ BaoCao.nguoi_nhan_bao_cao.get_full_name }}</p>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <strong>Người báo cáo:</strong> {{ BaoCao.nguoi_bao_cao.get_full_name }}
+            </p>
+            <hr />
+            <p class="card-text">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <strong>Ngày báo cáo:</strong> {{ BaoCao.ngay_bao_cao|date:"d/m/Y" }}
+            </p>
+            <hr />
+            <p class="card-text">
+                <a href="{% url 'QLthietbi_app:render_chitietthietbi' BaoCao.thiet_bi.id_thiet_bi %}" class="a-td">
+                    <i class="fa fa-cube" aria-hidden="true"></i>
+                    <strong>Thiết bị cần sửa:</strong>
+                    {{ BaoCao.thiet_bi }}
+                </a>
+            </p>
+            <hr />
+            <p class="card-text">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <strong>Vị trí thiết bị:</strong> Tầng {{BaoCao.thiet_bi.tang}}, hòng {{BaoCao.thiet_bi.phong}}
+            </p>
+            <hr />
+            <p class="card-text">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                <strong>Nội dung:</strong> {{ BaoCao.noi_dung }}
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <a class="btn btn-outline-success" data-target="#confirmHoanThanhBaoCaoModal-{{ BaoCao.pk }}" data-toggle="modal">Hoàn thành <i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+            <!-- Format keep -->
+            {% include "ktv/xn_hoanthanh.html" %}
+            <!-- Format keep -->
+            <a class="btn btn-outline-danger" data-target="#confirmKhongTheSuaChuaModal-{{ BaoCao.pk }}" data-toggle="modal">Không thể sửa chữa <i class="fa fa-times" aria-hidden="true"></i></a>
+            <!-- Format keep -->
+            {% include "ktv/xn_kothesua.html" %}
+            <!-- Format keep -->
+            <a class="btn btn-outline-dark" data-target="#confirmHuyNhanSuaModal-{{ BaoCao.pk }}" data-toggle="modal">Hủy nhận sửa <i class="fa fa-exchange" aria-hidden="true"></i></a>
+            <!-- Format keep -->
+            {% include "ktv/xn_huynhansua.html" %}
+            <!-- Format keep -->
+        </div>
+    </div>
+    <!-- Format keep -->
+    {% endfor %}
+    <!-- Format keep -->
+    {% else %}
+    <!-- Format keep -->
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Chưa nhận báo cáo nào!</h5>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Format keep -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(function () {
+        $('[data-tooltip="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}

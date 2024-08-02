@@ -1,0 +1,49 @@
+<div
+  class="modal fade"
+  id="confirmHoanThanhBaoCaoModal-{{ BaoCao.pk }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmHoanThanhBaoCaoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmHoanThanhModalLabel">
+          Xác nhận hoàn thành bảo trì thiết bị
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn đã hoàn thành thiết bị không?</p>
+        <div class="alert alert-danger">
+          <p>
+            <strong>Lưu ý:</strong>
+            Sau khi xác nhận hoàn thành thì <strong> trạng thái </strong> của thiết bị sửa chữa sẽ trờ về
+            <span class="badge badge-success"
+              ><i class="fa fa-signal" aria-hidden="true"></i> Hoạt động</span
+            >.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">
+            Hủy
+          </button>
+          <a
+            class="btn btn-success"
+            href="{% url 'QLthietbi_app:hoanthanh_baocao' BaoCao.pk %}"
+          >
+            Xác nhận
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

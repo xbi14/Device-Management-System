@@ -1,0 +1,50 @@
+<div
+  class="modal fade"
+  id="confirmDeleteTaiKhoanModal-{{ user.id }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmDeleteTaiKhoanModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteTaiKhoanModalLabel">
+          Xác nhận xóa
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa tài khoản này không?</p>
+        {% comment %} <div class="alert alert-danger">
+          <p>
+            <strong>Lưu ý:</strong>
+            Nếu xóa <strong> báo cáo này </strong> thì trạng thái thiết bị của
+            báo cáo này sẽ trở về
+            <span class="badge badge-success"
+              ><i class="fa fa-signal" aria-hidden="true"></i> Hoạt động</span
+            >.
+          </p>
+        </div> {% endcomment %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-dismiss="modal">
+            Hủy
+          </button>
+          <a
+            class="btn btn-danger"
+            href="{% url 'QLthietbi_app:hoso_xoa' user.id %}"
+          >
+            Xóa
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

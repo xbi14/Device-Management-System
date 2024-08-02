@@ -1,0 +1,230 @@
+{% extends 'ktv/header_ktv.html' %}
+<!-- Format keep -->
+{% block content %}
+<!-- Format keep -->
+<!-- MAIN -->
+<div class="col py-2">
+  <div class="row element-button">
+    <div class="col-sm px-3 py-1 pr-1">
+      <a class="btn btn-dark" href="{% url 'QLthietbi_app:tao_file_txt' %}"
+        ><i class="fa fa-file-text-o" aria-hidden="true"> Tạo file.txt</i></a
+      >
+      <a class="btn btn-dark" href="{% url 'QLthietbi_app:tao_file_csv' %}"
+        ><i class="fa fa-file-excel-o" aria-hidden="true"> Tạo file.csv</i></a
+      >
+
+      <div class="row px-1 py-3">
+        <div class="table-responsive">
+          <table
+            id="device-table"
+            class="table table-sm table-striped bg-light table-condensed table-bordered"
+            cellspacing="0"
+            width="100%"
+          >
+            <caption>
+              <form
+                method="get"
+                id="thietbifilter"
+                data-device-url="{% url 'QLthietbi_app:ajax_load_phong' %}"
+              >
+                {% csrf_token %} {% for field in myFilter.form %}
+                <a>{{ field.label_tag }}</a>&nbsp{{ field }}&nbsp
+                <!-- Format keep -->
+                {%endfor %}
+                <button type="submit" class="btn btn-dark">
+                  <i class="fa fa-filter" aria-hidden="true"> Lọc</i>
+                </button>
+                <a
+                  href="{% url 'QLthietbi_app:render_danhsachthietbi' %}"
+                  class="btn btn-dark"
+                  ><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</a
+                >
+              </form>
+            </caption>
+            <thead class="thead-dark">
+              <tr id="chk-th">
+                <th>Mã thiết bị</th>
+                <th>Tên thiết bị</th>
+                <th>Hình ảnh</th>
+                <th>Loại thiết bị</th>
+                <th>Tầng</th>
+                <th>Phòng</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% csrf_token %} {% for ThietBi in listThietBi %}
+              <tr>
+                <td>
+                  <a
+                    href="{% url 'QLthietbi_app:render_chitietthietbi_ktv' ThietBi.id_thiet_bi %}"
+                    class="a-td"
+                  >
+                    {{ThietBi.id_thiet_bi}}
+                  </a>
+                </td>
+                <td>
+                  <a
+                    href="{% url 'QLthietbi_app:render_chitietthietbi_ktv' ThietBi.id_thiet_bi %}"
+                    class="a-td"
+                    >{{ThietBi.ten_thiet_bi}}</a
+                  >
+                </td>
+                <td>
+                  <a
+                    href="{% url 'QLthietbi_app:render_chitietthietbi_ktv' ThietBi.id_thiet_bi %}"
+                    class="a-td"
+                    ><img
+                      src="{{ThietBi.hinh_anh.url}}"
+                      width="100"
+                      height="100"
+                  /></a>
+                </td>
+                <!-- Format keep -->
+                {% if ThietBi.loai_thiet_bi == None %}
+                <!-- Format keep -->
+                <td>Loại thiết bị đã bị xóa</td>
+                <!-- Format keep -->
+                {% else %}
+                <!-- Format keep -->
+                <td>{{ThietBi.loai_thiet_bi}}</td>
+                <!-- Format keep -->
+                {% endif %}
+                <!-- Format keep -->
+                {% if ThietBi.tang == None %}
+                <!-- Format keep -->
+                <td>Tầng đã bị xóa</td>
+                <!-- Format keep -->
+                {% else %}
+                <!-- Format keep -->
+                <td>Tầng {{ThietBi.tang}}</td>
+                <!-- Format keep -->
+                {% endif %}
+                <!-- Format keep -->
+                {% if ThietBi.phong == None %}
+                <!-- Format keep -->
+                <td>Phòng đã bị xóa</td>
+                <!-- Format keep -->
+                {% else %}
+                <!-- Format keep -->
+                <td>Phòng {{ThietBi.phong}}</td>
+                <!-- Format keep -->
+                {% endif %}
+                 <!-- Format keep -->
+                {% if ThietBi.tinh_trang == "hoatdong" %}
+                <td>
+                  <span class="badge badge-success"
+                    ><i class="fa fa-signal" aria-hidden="true"></i> Hoạt
+                    động</span
+                  >
+                </td>
+                {% elif ThietBi.tinh_trang == "dangbaotri" %}
+                <td>
+                  <span class="badge badge-warning"
+                    ><i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
+                    Bảo trì</span
+                  >
+                </td>
+                {% else %}
+                <td>
+                  <span class="badge badge-danger"
+                    ><i
+                      class="fa fa-spinner fa-pulse fa-fw"
+                      aria-hidden="true"
+                    ></i>
+                    Hỏng</span
+                  >
+                </td>
+                {% endif %}
+                <td>
+                  <a
+                    href="{% url 'QLthietbi_app:render_chitietthietbi_ktv' ThietBi.id_thiet_bi %}"
+                    class="btn btn-outline-dark"
+                    data-tooltip="tooltip"
+                    data-placement="top"
+                    title="Thông tin thiết bị"
+                    ><i class="fa fa-info-circle" aria-hidden="true"></i
+                  ></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Main Col END -->
+  </div>
+  <!-- body-row END -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $("#thietbifilter #id_tang").change(function () {
+      var url = $("#thietbifilter").attr("data-device-url");
+      var tangId = $(this).val();
+      if (tangId == "") {
+        $("#thietbifilter #id_phong").html(
+          "<option value=''>---------</option>"
+        );
+        return;
+      }
+      $.ajax({
+        url: url,
+        data: {
+          tang_id: tangId,
+        },
+        success: function (data) {
+          $("#thietbifilter #id_phong").html(data);
+        },
+      });
+    });
+    $.when(
+      $("#thietbifilter #id_tang").trigger("change"),
+    ).done(function (filter_data, them_data, sua_data) {
+      console.log(filter_data);
+    });
+  </script>
+  <script>
+    $(function () {
+      $('[data-tooltip="tooltip"]').tooltip();
+    });
+  </script>
+  <!-- Data Table -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#device-table").DataTable({
+        lengthMenu: [5, 15, 25, 50], // Các tùy chọn giới hạn số lượng mục trên bảng
+        language: {
+          lengthMenu: "Hiển thị _MENU_ thiết bị",
+          info: "Hiển thị từ _START_ đến _END_ của _TOTAL_ thiết bị",
+          infoEmpty: "Hiển thị từ 0 đến 0 của 0 thiết bị",
+          infoFiltered: "(lọc từ _MAX_ thiết bị)",
+          search: "Tìm kiếm:",
+          paginate: {
+            first: "Đầu",
+            last: "Cuối",
+            next: "Tiếp",
+            previous: "Trước",
+          },
+          zeroRecords: "Không tìm thấy thiết bị",
+          emptyTable: "Không có dữ liệu trong bảng",
+          loadingRecords: "Đang tải...",
+          processing: "Đang xử lý...",
+          aria: {
+            sortAscending: ": Sắp xếp tăng dần",
+            sortDescending: ": Sắp xếp giảm dần",
+          },
+        },
+        columnDefs: [
+          { orderable: false, targets: 2 },
+          { orderable: false, targets: 7 }, // Không cho phép sắp xếp cột thao tác
+        ],
+        order: [[0, "asc"]], // Sắp xếp cột đầu tiên theo thứ tự tăng dần
+        //"dom": '<"top"l>rt<"bottom"ip><"clear">' // Định dạng các thành phần của bảng
+      });
+    });
+  </script>
+</div>
+{% endblock %}

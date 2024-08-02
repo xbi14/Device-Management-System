@@ -1,0 +1,13 @@
+body {
+    background-image: url("../imgs/login_1920x1080.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+  }
+
+.card {
+  margin-top: 150px;
+  margin-bottom: auto;
+}
